@@ -57,6 +57,7 @@
             #binding-cells = <2>;
             flavor = "hold-preferred";
             tapping-term-ms = <200>;
+            require-prior-idle-ms = <125>;
             bindings = <&kp>, <&kp>;
         };
 
@@ -67,6 +68,7 @@
             #binding-cells = <2>;
             flavor = "hold-preferred";
             tapping-term-ms = <200>;
+            require-prior-idle-ms = <125>;
             bindings = <&kp>, <&kp>;
         };
 
@@ -77,6 +79,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
+            require-prior-idle-ms = <125>;
             bindings = <&save>, <&kp>;
         };
 
@@ -87,6 +90,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
+            require-prior-idle-ms = <125>;
             bindings = <&undo>, <&kp>;
         };
 
@@ -97,6 +101,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
+            require-prior-idle-ms = <125>;
             bindings = <&cut>, <&kp>;
         };
 
@@ -107,6 +112,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
+            require-prior-idle-ms = <125>;
             bindings = <&copy>, <&kp>;
         };
 
@@ -117,6 +123,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
+            require-prior-idle-ms = <125>;
             bindings = <&paste>, <&kp>;
         };
 
@@ -125,8 +132,10 @@
             compatible = "zmk,behavior-hold-tap";
             label = "Y_REDO_HT";
             #binding-cells = <2>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <200>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <125>;
             bindings = <&redo>, <&kp>;
         };
 
@@ -137,6 +146,7 @@
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
+            require-prior-idle-ms = <125>;
             bindings = <&selectall>, <&kp>;
         };
     };
