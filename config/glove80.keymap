@@ -5,6 +5,7 @@
  * 
  * Modifications:
  * - Z/X/C/V/Y = tap letter, hold = Undo/Cut/Copy/Paste/Redo
+ * - A = tap letter, hold = Select All (Ctrl+A)
  * - Enter = tap Enter, hold Save (Ctrl+S)
  * - Left/Right Shift = hold Shift, tap Caps Lock
  * - Space unchanged (plain space)
@@ -128,6 +129,16 @@
             tapping-term-ms = <200>;
             bindings = <&redo>, <&kp>;
         };
+
+        // CUSTOM: A / Select All
+        a_selectall_ht: a_selectall_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "A_SELECTALL_HT";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&selectall>, <&kp>;
+        };
     };
 
     macros {
@@ -210,6 +221,13 @@
             #binding-cells = <0>;
             bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp Y>, <&macro_release &kp LCTRL>;
         };
+
+        selectall: selectall_macro {
+            compatible = "zmk,behavior-macro";
+            label = "SELECTALL";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp A>, <&macro_release &kp LCTRL>;
+        };
     };
 
     keymap {
@@ -220,7 +238,7 @@
             // |  F1   |  F2 |  F3 |  F4  |  F5  |                                                               |  F6   |  F7   |  F8  |   F9  |  F10 |
             // |  =    |  1  |  2  |  3   |  4   |  5   |                                                 |  6   |   7   |   8   |  9   |   0   |   -  |
             // |  TAB  |  Q  |  W  |  E   |  R   |  T   |                                                 |  Y*  |   U   |   I   |  O   |   P   |   \  |
-            // |  ESC  |  A  |  S  |  D   |  F   |  G   |                                                 |  H   |   J   |   K   |  L   |   ;   |   '  |
+            // |  ESC  |  A* |  S  |  D   |  F   |  G   |                                                 |  H   |   J   |   K   |  L   |   ;   |   '  |
             // |   `   |  Z* |  X* |  C*  |  V*  |  B   | LSHFT* | LCTRL | LOWER | | LGUI  | RCTRL | RSHFT* |  N   |   M   |   ,   |  .   |   /   | PGUP |
             // | MAGIC | HOME| END | LEFT | RIGHT|      | BSPC  | DEL   | LALT  | | RALT  | RET*  | SPACE |      |  UP   | DOWN  |  [   |   ]   | PGDN |
             // * = MODIFIED from stock
@@ -229,7 +247,7 @@
             &kp F1         &kp F2   &kp F3      &kp F4          &kp F5                                                                                                &kp F6  &kp F7   &kp F8          &kp F9    &kp F10
             &kp EQUAL      &kp N1   &kp N2      &kp N3          &kp N4          &kp N5                                                                        &kp N6  &kp N7   &kp N8          &kp N9    &kp N0     &kp MINUS
             &kp TAB        &kp Q    &kp W       &kp E           &kp R           &kp T                                                                         &y_redo_ht 0 Y   &kp U    &kp I           &kp O     &kp P      &kp BSLH
-            &kp ESC        &kp A    &kp S       &kp D           &kp F           &kp G                                                                         &kp H   &kp J    &kp K           &kp L     &kp SEMI   &kp SQT
+            &kp ESC        &a_selectall_ht 0 A  &kp S       &kp D           &kp F           &kp G                                                                         &kp H   &kp J    &kp K           &kp L     &kp SEMI   &kp SQT
             &kp GRAVE      &z_undo_ht 0 Z       &x_cut_ht 0 X   &c_copy_ht 0 C  &v_paste_ht 0 V &kp B   &lsft_caps_ht LSHFT CAPSLOCK &kp LCTRL &layer_td   &kp LGUI  &kp RCTRL &rsft_caps_ht RSHFT CAPSLOCK &kp N   &kp M    &kp COMMA       &kp DOT   &kp FSLH   &kp PG_UP
             &magic MAGIC 0 &kp HOME &kp END     &kp LEFT        &kp RIGHT               &kp BSPC  &kp DEL   &kp LALT    &kp RALT  &enter_save_ht 0 RET &kp SPACE        &kp UP   &kp DOWN        &kp LBKT  &kp RBKT   &kp PG_DN
             >;
