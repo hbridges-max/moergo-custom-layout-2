@@ -1,8 +1,6 @@
 / {
     behaviors {
-        // Existing behaviors ...
-
-        // --- Hold-tap for Shifts ---
+        // Left Shift = hold for Shift, tap for Caps
         lsft_caps_ht: lsft_caps_hold_tap {
             compatible = "zmk,behavior-hold-tap";
             label = "LSFT_CAPS_HT";
@@ -12,6 +10,7 @@
             bindings = <&kp CAPSLOCK>, <&kp LSHFT>;
         };
 
+        // Right Shift = hold for Shift, tap for Caps
         rsft_caps_ht: rsft_caps_hold_tap {
             compatible = "zmk,behavior-hold-tap";
             label = "RSFT_CAPS_HT";
@@ -21,7 +20,7 @@
             bindings = <&kp CAPSLOCK>, <&kp RSHFT>;
         };
 
-        // --- Hold-tap for Enter/Save ---
+        // Enter = tap Enter, hold Save
         enter_save_ht: enter_save_hold_tap {
             compatible = "zmk,behavior-hold-tap";
             label = "ENTER_SAVE_HT";
@@ -30,24 +29,64 @@
             tapping-term-ms = <200>;
             bindings = <&kp RET>, <&save>;
         };
+
+        // Undo, Cut, Copy, Paste, Redo as hold-taps
+        z_undo_ht: z_undo_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "Z_UNDO_HT";
+            #binding-cells = <0>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp Z>, <&undo>;
+        };
+        x_cut_ht: x_cut_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "X_CUT_HT";
+            #binding-cells = <0>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp X>, <&cut>;
+        };
+        c_copy_ht: c_copy_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "C_COPY_HT";
+            #binding-cells = <0>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp C>, <&copy>;
+        };
+        v_paste_ht: v_paste_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "V_PASTE_HT";
+            #binding-cells = <0>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp V>, <&paste>;
+        };
+        y_redo_ht: y_redo_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "Y_REDO_HT";
+            #binding-cells = <0>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp Y>, <&redo>;
+        };
     };
 
-    // ... keep your macros as they are ...
+    // macros { ... keep yours as-is ... }
 
     keymap {
-        compatible = "zmk,keymap";
-
         default_layer {
             bindings = <
-            &kp F1         &kp F2   &kp F3      &kp F4      &kp F5                                                                  &kp F6  &kp F7      &kp F8      &kp F9      &kp F10
-            &kp EQUAL      &kp N1   &kp N2      &kp N3      &kp N4      &kp N5                                              &kp N6  &kp N7  &kp N8      &kp N9      &kp N0      &kp MINUS
-            &kp TAB        &kp Q    &kp W       &kp E       &kp R       &kp T                                               &mt &kp Y &redo &kp U       &kp I       &kp O       &kp P       &kp BSLH
-            &kp ESC        &kp A    &kp S       &kp D       &kp F       &kp G                                               &kp H   &kp J   &kp K       &kp L       &kp SEMI    &kp SQT
-            &kp GRAVE      &mt &kp Z &undo &mt &kp X &cut  &mt &kp C &copy  &mt &kp V &paste  &kp B  &lsft_caps_ht &kp LCTRL &layer_td  &kp LGUI  &kp RCTRL &rsft_caps_ht   &kp N   &kp M   &kp COMMA   &kp DOT     &kp FSLH    &kp PG_UP
-            &magic MAGIC 0 &kp HOME &kp END     &kp LEFT    &kp RIGHT          &kp BSPC       &kp DEL     &kp LALT   &kp RALT  &enter_save_ht   &kp SPACE           &kp UP  &kp DOWN    &kp LBKT    &kp RBKT    &kp PG_DN
+            &kp F1 &kp F2 &kp F3 &kp F4 &kp F5                            &kp F6 &kp F7 &kp F8 &kp F9 &kp F10
+            &kp EQUAL &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                   &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp MINUS
+            &kp TAB &kp Q &kp W &kp E &kp R &kp T                          &y_redo_ht &kp U &kp I &kp O &kp P &kp BSLH
+            &kp ESC &kp A &kp S &kp D &kp F &kp G                          &kp H &kp J &kp K &kp L &kp SEMI &kp SQT
+            &kp GRAVE &z_undo_ht &x_cut_ht &c_copy_ht &v_paste_ht &kp B    &lsft_caps_ht &kp LCTRL &layer_td &kp LGUI &kp RCTRL &rsft_caps_ht &kp N &kp M &kp COMMA &kp DOT &kp FSLH &kp PG_UP
+            &magic MAGIC 0 &kp HOME &kp END &kp LEFT &kp RIGHT              &kp BSPC &kp DEL &kp LALT &kp RALT &enter_save_ht &kp SPACE &kp UP &kp DOWN &kp LBKT &kp RBKT &kp PG_DN
             >;
         };
 
-        // lower_layer, magic_layer, factory_test_layer unchanged...
+        // lower_layer, magic_layer, factory_test_layer unchanged
     };
 };
