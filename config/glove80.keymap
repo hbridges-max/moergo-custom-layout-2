@@ -249,6 +249,26 @@
             require-prior-idle-ms = <150>;
             bindings = <&selectall>, <&kp>;
         };
+
+        // CUSTOM: Hyphen / Em dash with tap dance for En dash
+        hyphen_dash: hyphen_dash_behavior {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HYPHEN_DASH";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <280>;
+            require-prior-idle-ms = <150>;
+            bindings = <&emdash>, <&hyphen_td>;
+        };
+
+        // Tap dance: single tap = hyphen, double tap = en dash
+        hyphen_td: hyphen_tap_dance {
+            compatible = "zmk,behavior-tap-dance";
+            label = "HYPHEN_TAP_DANCE";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp MINUS>, <&endash>;
+        };
     };
 
     macros {
