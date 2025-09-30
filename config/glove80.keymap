@@ -7,7 +7,12 @@
  * - Z/X/C/V/Y = tap letter, hold = Undo/Cut/Copy/Paste/Redo
  * - A = tap letter, hold = Select All (Ctrl+A)
  * - Enter = tap Enter, hold Save (Ctrl+S)
- * - Left/Right Shift = hold Shift, tap Caps Lock
+ * - Tab and Esc positions swapped
+ * - Esc = tap Esc, hold = toggle Caps Lock
+ * - Tab = tap Tab, hold = Windows+Tab (Task View)
+ * - Left+Right arrows = Select word (Ctrl+Shift+Right)
+ * - Up+Down arrows = Select section (Ctrl+Shift+Down)
+ * - Shifts = normal shift (reverted from caps lock tap)
  * - Space unchanged (plain space)
  * - All other layers kept as stock
  *
@@ -48,6 +53,50 @@
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
             bindings = <&mo>, <&rgb_ug_status_macro>;
+        };
+
+        // CUSTOM: Esc / Caps Lock Toggle
+        esc_caps_ht: esc_caps_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "ESC_CAPS_HT";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <280>;
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&kp>;
+        };
+
+        // CUSTOM: Tab / Windows+Tab (Task View)
+        tab_taskview_ht: tab_taskview_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "TAB_TASKVIEW_HT";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <350>;
+            require-prior-idle-ms = <150>;
+            bindings = <&taskview>, <&kp>;
+        };
+
+        // CUSTOM: Left Shift / Caps Lock
+        lsft_caps_ht: lsft_caps_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LSFT_CAPS_HT";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <280>;
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&kp>;
+        };
+
+        // CUSTOM: Right Shift / Caps Lock
+        rsft_caps_ht: rsft_caps_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "RSFT_CAPS_HT";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <280>;
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&kp>;
         };
 
         // CUSTOM: Left Shift / Caps Lock
@@ -238,6 +287,47 @@
             #binding-cells = <0>;
             bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp A>, <&macro_release &kp LCTRL>;
         };
+
+        // CUSTOM: Arrow key combos for text selection
+        select_word: select_word_macro {
+            compatible = "zmk,behavior-macro";
+            label = "SELECT_WORD";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL &kp LSHFT>, <&macro_tap &kp RIGHT>, <&macro_release &kp LCTRL &kp LSHFT>;
+        };
+
+        select_section: select_section_macro {
+            compatible = "zmk,behavior-macro";
+            label = "SELECT_SECTION";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL &kp LSHFT>, <&macro_tap &kp DOWN>, <&macro_release &kp LCTRL &kp LSHFT>;
+        };
+
+        // CUSTOM: Windows+Tab for Task View
+        taskview: taskview_macro {
+            compatible = "zmk,behavior-macro";
+            label = "TASKVIEW";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI>, <&macro_tap &kp TAB>, <&macro_release &kp LGUI>;
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+        
+        // Left+Right arrows = Select word
+        combo_select_word {
+            timeout-ms = <50>;
+            key-positions = <73 74>;
+            bindings = <&select_word>;
+        };
+        
+        // Up+Down arrows = Select section
+        combo_select_section {
+            timeout-ms = <50>;
+            key-positions = <75 76>;
+            bindings = <&select_section>;
+        };
     };
 
     keymap {
@@ -247,18 +337,20 @@
             // ---------------------------------------------------------------------------------------------------------------------------------
             // |  F1   |  F2 |  F3 |  F4  |  F5  |                                                               |  F6   |  F7   |  F8  |   F9  |  F10 |
             // |  =    |  1  |  2  |  3   |  4   |  5   |                                                 |  6   |   7   |   8   |  9   |   0   |   -  |
-            // |  TAB  |  Q  |  W  |  E   |  R   |  T   |                                                 |  Y*  |   U   |   I   |  O   |   P   |   \  |
-            // |  ESC  |  A* |  S  |  D   |  F   |  G   |                                                 |  H   |   J   |   K   |  L   |   ;   |   '  |
-            // |   `   |  Z* |  X* |  C*  |  V*  |  B   | LSHFT* | LCTRL | LOWER | | LGUI  | RCTRL | RSHFT* |  N   |   M   |   ,   |  .   |   /   | PGUP |
-            // | MAGIC | HOME| END | LEFT | RIGHT|      | BSPC  | DEL   | LALT  | | RALT  | RET*  | SPACE |      |  UP   | DOWN  |  [   |   ]   | PGDN |
+            // |  ESC* |  Q  |  W  |  E   |  R   |  T   |                                                 |  Y*  |   U   |   I   |  O   |   P   |   \  |
+            // |  TAB* |  A* |  S  |  D   |  F   |  G   |                                                 |  H   |   J   |   K   |  L   |   ;   |   '  |
+            // |   `   |  Z* |  X* |  C*  |  V*  |  B   | LSHFT | LCTRL | LOWER | | LGUI  | RCTRL | RSHFT |  N   |   M   |   ,   |  .   |   /   | PGUP |
+            // | MAGIC | HOME| END | LEFT*| RIGHT*|     | BSPC  | DEL   | LALT  | | RALT  | RET*  | SPACE |      |  UP*  | DOWN* |  [   |   ]   | PGDN |
             // * = MODIFIED from stock
+            // ESC* = tap ESC / hold Caps Lock toggle
+            // TAB* = tap Tab / hold Windows+Tab (Task View)
 
             bindings = <
             &kp F1         &kp F2   &kp F3      &kp F4          &kp F5                                                                                                &kp F6  &kp F7   &kp F8          &kp F9    &kp F10
             &kp EQUAL      &kp N1   &kp N2      &kp N3          &kp N4          &kp N5                                                                        &kp N6  &kp N7   &kp N8          &kp N9    &kp N0     &kp MINUS
-            &kp TAB        &kp Q    &kp W       &kp E           &kp R           &kp T                                                                         &y_redo_ht 0 Y   &kp U    &kp I           &kp O     &kp P      &kp BSLH
-            &kp ESC        &a_selectall_ht 0 A  &kp S       &kp D           &kp F           &kp G                                                                         &kp H   &kp J    &kp K           &kp L     &kp SEMI   &kp SQT
-            &kp GRAVE      &z_undo_ht 0 Z       &x_cut_ht 0 X   &c_copy_ht 0 C  &v_paste_ht 0 V &kp B   &lsft_caps_ht LSHFT CAPSLOCK &kp LCTRL &layer_td   &kp LGUI  &kp RCTRL &rsft_caps_ht RSHFT CAPSLOCK &kp N   &kp M    &kp COMMA       &kp DOT   &kp FSLH   &kp PG_UP
+            &esc_caps_ht CAPSLOCK ESC    &kp Q    &kp W       &kp E           &kp R           &kp T                                                                         &y_redo_ht 0 Y   &kp U    &kp I           &kp O     &kp P      &kp BSLH
+            &tab_taskview_ht 0 TAB        &a_selectall_ht 0 A  &kp S       &kp D           &kp F           &kp G                                                                         &kp H   &kp J    &kp K           &kp L     &kp SEMI   &kp SQT
+            &kp GRAVE      &z_undo_ht 0 Z       &x_cut_ht 0 X   &c_copy_ht 0 C  &v_paste_ht 0 V &kp B   &kp LSHFT &kp LCTRL &layer_td   &kp LGUI  &kp RCTRL &kp RSHFT &kp N   &kp M    &kp COMMA       &kp DOT   &kp FSLH   &kp PG_UP
             &magic MAGIC 0 &kp HOME &kp END     &kp LEFT        &kp RIGHT               &kp BSPC  &kp DEL   &kp LALT    &kp RALT  &enter_save_ht 0 RET &kp SPACE        &kp UP   &kp DOWN        &kp LBKT  &kp RBKT   &kp PG_DN
             >;
         };
