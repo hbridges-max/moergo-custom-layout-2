@@ -128,50 +128,6 @@
             bindings = <&delword>, <&kp>;
         };
 
-        // CUSTOM: Left Shift / Caps Lock
-        lsft_caps_ht: lsft_caps_hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            label = "LSFT_CAPS_HT";
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <280>;
-            require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&kp>;
-        };
-
-        // CUSTOM: Right Shift / Caps Lock
-        rsft_caps_ht: rsft_caps_hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            label = "RSFT_CAPS_HT";
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <280>;
-            require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&kp>;
-        };
-
-        // CUSTOM: Left Shift / Caps Lock
-        lsft_caps_ht: lsft_caps_hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            label = "LSFT_CAPS_HT";
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <280>;
-            require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&kp>;
-        };
-
-        // CUSTOM: Right Shift / Caps Lock
-        rsft_caps_ht: rsft_caps_hold_tap {
-            compatible = "zmk,behavior-hold-tap";
-            label = "RSFT_CAPS_HT";
-            #binding-cells = <2>;
-            flavor = "hold-preferred";
-            tapping-term-ms = <280>;
-            require-prior-idle-ms = <150>;
-            bindings = <&kp>, <&kp>;
-        };
-
         // CUSTOM: Enter / Save
         enter_save_ht: enter_save_hold_tap {
             compatible = "zmk,behavior-hold-tap";
