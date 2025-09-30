@@ -387,20 +387,26 @@
             bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp END>, <&macro_release &kp LCTRL>;
         };
 
-        // CUSTOM: Em dash (—)
+        // CUSTOM: Em dash (—) - Windows Unicode method
         emdash: emdash_macro {
             compatible = "zmk,behavior-macro";
             label = "EMDASH";
             #binding-cells = <0>;
-            bindings = <&kp LS(LA(MINUS))>;
+            bindings 
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N5 &kp KP_N1>
+                , <&macro_release &kp LALT>;
         };
 
-        // CUSTOM: En dash (–)
+        // CUSTOM: En dash (–) - Windows Unicode method
         endash: endash_macro {
             compatible = "zmk,behavior-macro";
             label = "ENDASH";
             #binding-cells = <0>;
-            bindings = <&kp LA(MINUS)>;
+            bindings 
+                = <&macro_press &kp LALT>
+                , <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N5 &kp KP_N0>
+                , <&macro_release &kp LALT>;
         };
     };
 
