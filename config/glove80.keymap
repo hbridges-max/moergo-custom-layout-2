@@ -256,6 +256,17 @@
             require-prior-idle-ms = <150>;
             bindings = <&new>, <&kp>;
         };
+
+        // CUSTOM: P / Screenshot
+        p_screenshot_ht: p_screenshot_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "P_SCREENSHOT_HT";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <280>;
+            require-prior-idle-ms = <150>;
+            bindings = <&screenshot>, <&kp>;
+        };
     };
 
     macros {
@@ -451,6 +462,14 @@
             #binding-cells = <0>;
             bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp N>, <&macro_release &kp LCTRL>;
         };
+
+        // CUSTOM: Screenshot (Windows+Shift+S)
+        screenshot: screenshot_macro {
+            compatible = "zmk,behavior-macro";
+            label = "SCREENSHOT";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI &kp LSHFT>, <&macro_tap &kp S>, <&macro_release &kp LGUI &kp LSHFT>;
+        };
     };
 
     combos {
@@ -492,7 +511,7 @@
             bindings = <
             &kp F1         &kp F2   &kp F3      &kp F4          &kp F5                                                                                                &kp F6  &kp F7   &kp F8          &kp F9    &kp F10
             &kp EQUAL      &kp N1   &kp N2      &kp N3          &kp N4          &kp N5                                                                        &kp N6  &kp N7   &kp N8          &kp N9    &kp N0     &hyphen_emdash_ht 0 MINUS
-            &esc_caps_ht CAPSLOCK ESC    &kp Q    &kp W       &kp E           &kp R           &kp T                                                                         &y_redo_ht 0 Y   &u_underline_ht 0 U    &i_italic_ht 0 I           &o_open_ht 0 O     &kp P      &kp BSLH
+            &esc_caps_ht CAPSLOCK ESC    &kp Q    &kp W       &kp E           &kp R           &kp T                                                                         &y_redo_ht 0 Y   &u_underline_ht 0 U    &i_italic_ht 0 I           &o_open_ht 0 O     &p_screenshot_ht 0 P      &kp BSLH
             &tab_taskview_ht 0 TAB        &a_selectall_ht 0 A  &s_save_ht 0 S  &d_duplicate_ht 0 D  &f_find_ht 0 F   &kp G                                                                         &kp H   &kp J    &kp K           &kp L     &kp SEMI   &kp SQT
             &kp GRAVE      &z_undo_ht 0 Z       &x_cut_ht 0 X   &c_copy_ht 0 C  &v_paste_ht 0 V &b_bold_ht 0 B   &kp LSHFT &kp LCTRL &layer_td   &kp LGUI  &kp RCTRL &kp RSHFT &n_new_ht 0 N   &kp M    &kp COMMA       &kp DOT   &kp FSLH   &kp PG_UP
             &magic MAGIC 0 &kp HOME &kp END     &kp LEFT        &kp RIGHT               &kp BSPC  &kp DEL   &kp LALT    &kp RALT  &enter_save_ht 0 RET &kp SPACE        &kp UP   &kp DOWN        &kp LBKT  &kp RBKT   &kp PG_DN
