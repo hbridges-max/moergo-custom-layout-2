@@ -544,7 +544,7 @@
             &esc_caps_ht CAPSLOCK ESC    &kp Q    &kp W       &kp E           &kp R           &kp T                                                                         &y_redo_ht 0 Y   &u_underline_ht 0 U    &i_italic_ht 0 I           &o_open_ht 0 O     &p_screenshot_ht 0 P      &kp BSLH
             &tab_taskview_ht 0 TAB        &a_selectall_ht 0 A  &s_save_ht 0 S  &d_duplicate_ht 0 D  &f_find_ht 0 F   &kp G                                                                         &kp H   &kp J    &kp K           &kp L     &kp SEMI   &kp SQT
             &kp GRAVE      &z_undo_ht 0 Z       &x_cut_ht 0 X   &c_copy_ht 0 C  &v_paste_ht 0 V &b_bold_ht 0 B   &kp LSHFT &kp LCTRL &layer_td   &kp LGUI  &kp RCTRL &kp RSHFT &n_new_ht 0 N   &kp M    &kp COMMA       &kp DOT   &kp FSLH   &kp PG_UP
-            &magic MAGIC 0 &kp HOME &kp END     &kp LEFT        &kp RIGHT               &kp BSPC  &kp DEL   &kp LALT    &kp RALT  &enter_cse_ht 0 RET &kp SPACE        &kp UP   &kp DOWN        &kp LBKT  &kp RBKT   &kp PG_DN
+            &magic MAGIC 0 &kp HOME &kp END     &kp LEFT        &kp RIGHT               &kp BSPC  &kp DEL   &kp LALT    &kp LALT  &enter_cse_ht 0 RET &kp SPACE        &kp UP   &kp DOWN        &kp LBKT  &kp RBKT   &kp PG_DN
             >;
         };
 
