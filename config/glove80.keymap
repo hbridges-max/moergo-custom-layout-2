@@ -278,6 +278,17 @@
             require-prior-idle-ms = <150>;
             bindings = <&endash>, <&kp>;
         };
+
+        // CUSTOM: Left Alt / Enter (for one-handed operation)
+        lalt_enter_ht: lalt_enter_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LALT_ENTER_HT";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <280>;
+            require-prior-idle-ms = <150>;
+            bindings = <&kp>, <&kp>;
+        };
     };
 
     macros {
@@ -544,18 +555,18 @@
             &esc_caps_ht CAPSLOCK ESC    &kp Q    &kp W       &kp E           &kp R           &kp T                                                                         &y_redo_ht 0 Y   &u_underline_ht 0 U    &i_italic_ht 0 I           &o_open_ht 0 O     &p_screenshot_ht 0 P      &kp BSLH
             &tab_taskview_ht 0 TAB        &a_selectall_ht 0 A  &s_save_ht 0 S  &d_duplicate_ht 0 D  &f_find_ht 0 F   &kp G                                                                         &kp H   &kp J    &kp K           &kp L     &kp SEMI   &kp SQT
             &kp GRAVE      &z_undo_ht 0 Z       &x_cut_ht 0 X   &c_copy_ht 0 C  &v_paste_ht 0 V &b_bold_ht 0 B   &kp LSHFT &kp LCTRL &layer_td   &kp LGUI  &kp RCTRL &kp RSHFT &n_new_ht 0 N   &kp M    &kp COMMA       &kp DOT   &kp FSLH   &kp PG_UP
-            &magic MAGIC 0 &kp HOME &kp END     &kp LEFT        &kp RIGHT               &kp BSPC  &kp DEL   &kp LALT    &kp LALT  &enter_cse_ht 0 RET &kp SPACE        &kp UP   &kp DOWN        &kp LBKT  &kp RBKT   &kp PG_DN
+            &magic MAGIC 0 &kp HOME &kp END     &kp LEFT        &kp RIGHT               &kp BSPC  &kp DEL   &lalt_enter_ht RET LALT    &kp LALT  &enter_cse_ht 0 RET &kp SPACE        &kp UP   &kp DOWN        &kp LBKT  &kp RBKT   &kp PG_DN
             >;
         };
 
         lower_layer {
             bindings = <
-            &bt BT_CLR     &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3                                                                                &none &none &none &none &none
-            &kp F11        &kp F1          &kp F2          &kp F3          &kp F4          &kp F5                                                          &kp F6    &kp F7    &kp F8          &kp F9    &kp F10   &kp F12
-            &kp GRAVE      &kp N1          &kp N2          &kp N3          &kp N4          &kp N5                                                          &kp N6    &kp N7    &kp N8          &kp N9    &kp N0    &trans
-            &trans         &kp EXCL        &kp AT          &kp HASH        &kp DOLLAR      &kp PRCNT                                                       &kp CARET &kp AMPS  &kp KP_MULTIPLY &kp LPAR  &kp RPAR  &trans
-            &trans         &kp EQUAL       &kp MINUS       &kp KP_PLUS     &kp LBRC        &kp RBRC        &trans &trans &trans        &trans &trans &trans &kp LBKT  &kp RBKT  &kp SEMI        &kp COLON &kp BSLH  &trans
-            &trans         &trans          &trans          &trans          &trans                          &trans &trans &trans        &trans &trans &trans           &trans    &trans          &trans    &trans    &trans
+            &kp C_BRI_DN      &kp C_BRI_UP        &none           &none           &none                                                                                                                           &none           &none           &none           &none           &kp PAUSE_BREAK
+            &kp F11           &kp F1              &kp F2          &kp F3          &kp F4          &kp F5                                                                                          &kp F6          &kp F7          &kp F8          &kp F9          &kp F10         &kp F12
+            &none             &none               &none           &none           &none           &none                                                                                           &kp KP_NUM      &kp KP_EQUAL    &kp KP_DIVIDE   &kp KP_MULTIPLY &kp KP_MINUS    &kp SCROLLLOCK
+            &kp CAPSLOCK      &none               &none           &none           &none           &none                                                                                           &kp KP_N7       &kp KP_N8       &kp KP_N9       &kp KP_PLUS     &none           &none
+            &none             &none               &none           &none           &none           &none           &none   &none   &none           &none   &none   &none           &kp KP_N4       &kp KP_N5       &kp KP_N6       &kp KP_COMMA    &none           &none
+            &none             &kp K_APP           &none           &none           &none                           &none   &none   &none           &none   &none   &none                           &kp KP_N1       &kp KP_N2       &kp KP_N3       &kp KP_ENTER    &none
             >;
         };
 
