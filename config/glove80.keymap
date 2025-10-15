@@ -617,7 +617,7 @@
             &kp GRAVE  &kp PLUS  &kp SEMICOLON    &kp UP_ARROW  &kp COLON    &kp MINUS                                                  &kp RIGHT_PARENTHESIS   &kp KP_N7     &kp KP_N8     &kp KP_N9     &kp KP_MINUS   &kp SCROLLLOCK
               &kp TAB  &kp STAR  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp SLASH                                                            &kp PERCENT   &kp KP_N4     &kp KP_N5     &kp KP_N6      &kp KP_PLUS            &none
             &kp GRAVE     &undo           &cut         &copy          &paste  &kp PG_DN  &kp LSHFT  &kp LCTRL   &to 0  &kp LGUI  &kp RCTRL  &kp RSHFT              &kp COMMA   &kp KP_N1     &kp KP_N2     &kp KP_N3     &kp KP_ENTER      &kp PG_UP
- &magic MAGIC 0  &kp LEFT_PARENTHESIS  &kp SPACE  &kp RIGHT_PARENTHESIS  &kp COMMA             &kp BSPC  &kp DEL  &lalt_enter_ht RET LALT  &kp LALT  &kp RET  &kp SPACE                          &kp KP_N0     &kp KP_N0    &kp KP_DOT     &kp KP_ENTER      &kp PG_DN
+ &magic MAGIC 0  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp COMMA  &kp SPACE             &kp BSPC  &kp DEL  &lalt_enter_ht RET LALT  &kp LALT  &kp RET  &kp SPACE                          &kp KP_N0     &kp KP_N0    &kp KP_DOT     &kp KP_ENTER      &kp PG_DN
             >;
         };
 
