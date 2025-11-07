@@ -602,25 +602,25 @@
             bindings = <&caps_word>;
         };
 
-        // CUSTOM: A+S = @ symbol
+        // CUSTOM: A+S = @ symbol (increased timeout for hold-tap keys)
         combo_at_sign {
-            timeout-ms = <50>;
+            timeout-ms = <100>;
             key-positions = <38 37>;
             bindings = <&kp AT>;
         };
 
-        // CUSTOM: J+K = Page Down
-        combo_page_down {
-            timeout-ms = <50>;
-            key-positions = <41 42>;
-            bindings = <&kp PG_DN>;
-        };
-
-        // CUSTOM: K+L = Page Up
+        // CUSTOM: J+K = Page Up
         combo_page_up {
             timeout-ms = <50>;
-            key-positions = <42 43>;
+            key-positions = <41 42>;
             bindings = <&kp PG_UP>;
+        };
+
+        // CUSTOM: J+L = Page Down
+        combo_page_down {
+            timeout-ms = <50>;
+            key-positions = <41 43>;
+            bindings = <&kp PG_DN>;
         };
     };
 
