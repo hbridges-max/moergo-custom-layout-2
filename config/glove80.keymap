@@ -18,6 +18,7 @@
  * - Space unchanged (plain space)
  * - Backspace and Delete = normal (Ctrl+Backspace/Delete work natively for word deletion)
  * - All other layers kept as stock
+ * - Hyphen+Space simultaneously = Hyphen Mode (each Space tap produces hyphen, double-tap Space to exit)
  *
  * SPDX-License-Identifier: MIT
  */
@@ -36,6 +37,7 @@
 #define LOWER 1
 #define MAGIC 2
 #define FACTORY_TEST 3
+#define HYPHEN_SPACE 4
 
 / {
     behaviors {
@@ -64,6 +66,15 @@
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&kp RSHFT>, <&caps_word>;
+        };
+
+        // CUSTOM: Space in Hyphen Mode - tap for hyphen, double-tap to exit mode
+        space_hyphen_td: space_hyphen_tap_dance {
+            compatible = "zmk,behavior-tap-dance";
+            label = "SPACE_HYPHEN_TD";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp MINUS>, <&to DEFAULT>;
         };
 
         // Stock magic behavior
@@ -259,7 +270,7 @@
             label = "O_OPEN_HT";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <350>;
+            tapping-term-ms = <280>;
             require-prior-idle-ms = <150>;
             bindings = <&open>, <&kp>;
         };
@@ -297,10 +308,10 @@
             bindings = <&endash>, <&kp>;
         };
 
-        // CUSTOM: Left Alt / Enter (for one-handed operation)
-        lalt_enter_ht: lalt_enter_hold_tap {
+        // CUSTOM: Equals / Plus (for lower layer)
+        equals_plus_ht: equals_plus_hold_tap {
             compatible = "zmk,behavior-hold-tap";
-            label = "LALT_ENTER_HT";
+            label = "EQUALS_PLUS_HT";
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <280>;
@@ -308,7 +319,7 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // CUSTOM: Number 3 / Hash (for Excel)
+        // CUSTOM: 3 / Hash (for lower layer)
         n3_hash_ht: n3_hash_hold_tap {
             compatible = "zmk,behavior-hold-tap";
             label = "N3_HASH_HT";
@@ -319,7 +330,7 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // CUSTOM: Number 4 / Dollar (for Excel)
+        // CUSTOM: 4 / Dollar (for lower layer)
         n4_dollar_ht: n4_dollar_hold_tap {
             compatible = "zmk,behavior-hold-tap";
             label = "N4_DOLLAR_HT";
@@ -330,99 +341,65 @@
             bindings = <&kp>, <&kp>;
         };
 
-        // CUSTOM: Equals / Plus (for Excel)
-        equals_plus_ht: equals_plus_hold_tap {
+        // CUSTOM: Left Alt / Enter
+        lalt_enter_ht: lalt_enter_hold_tap {
             compatible = "zmk,behavior-hold-tap";
-            label = "EQUALS_PLUS_HT";
+            label = "LALT_ENTER_HT";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <280>;
-            require-prior-idle-ms = <150>;
+            tapping-term-ms = <200>;
             bindings = <&kp>, <&kp>;
         };
     };
 
     macros {
-        // Stock RGB macro
+        // Stock RGB status macro
         rgb_ug_status_macro: rgb_ug_status_macro_0 {
             label = "RGB_UG_STATUS";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_STATUS>;
+            bindings
+                = <&rgb_ug RGB_STATUS>;
         };
 
-        // Stock Bluetooth profiles
+        // Stock Bluetooth macros
         bt_0: bt_profile_macro_0 {
             label = "BT_0";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&out OUT_BLE>, <&bt BT_SEL 0>;
+            bindings
+                = <&out OUT_BLE>,
+                  <&bt BT_SEL 0>;
         };
 
         bt_1: bt_profile_macro_1 {
             label = "BT_1";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&out OUT_BLE>, <&bt BT_SEL 1>;
+            bindings
+                = <&out OUT_BLE>,
+                  <&bt BT_SEL 1>;
         };
 
         bt_2: bt_profile_macro_2 {
             label = "BT_2";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&out OUT_BLE>, <&bt BT_SEL 2>;
+            bindings
+                = <&out OUT_BLE>,
+                  <&bt BT_SEL 2>;
         };
 
         bt_3: bt_profile_macro_3 {
             label = "BT_3";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&out OUT_BLE>, <&bt BT_SEL 3>;
+            bindings
+                = <&out OUT_BLE>,
+                  <&bt BT_SEL 3>;
         };
 
-        // CUSTOM: Productivity macros
-        save: save_macro {
-            compatible = "zmk,behavior-macro";
-            label = "SAVE";
-            #binding-cells = <0>;
-            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp S>, <&macro_release &kp LCTRL>;
-        };
-
-        undo: undo_macro {
-            compatible = "zmk,behavior-macro";
-            label = "UNDO";
-            #binding-cells = <0>;
-            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp Z>, <&macro_release &kp LCTRL>;
-        };
-
-        cut: cut_macro {
-            compatible = "zmk,behavior-macro";
-            label = "CUT";
-            #binding-cells = <0>;
-            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp X>, <&macro_release &kp LCTRL>;
-        };
-
-        copy: copy_macro {
-            compatible = "zmk,behavior-macro";
-            label = "COPY";
-            #binding-cells = <0>;
-            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp C>, <&macro_release &kp LCTRL>;
-        };
-
-        paste: paste_macro {
-            compatible = "zmk,behavior-macro";
-            label = "PASTE";
-            #binding-cells = <0>;
-            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp V>, <&macro_release &kp LCTRL>;
-        };
-
-        redo: redo_macro {
-            compatible = "zmk,behavior-macro";
-            label = "REDO";
-            #binding-cells = <0>;
-            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp Y>, <&macro_release &kp LCTRL>;
-        };
-
+        // CUSTOM: Select All (Ctrl+A)
         selectall: selectall_macro {
             compatible = "zmk,behavior-macro";
             label = "SELECTALL";
@@ -430,27 +407,20 @@
             bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp A>, <&macro_release &kp LCTRL>;
         };
 
-        // CUSTOM: Arrow key combos for text selection
-        select_word: select_word_macro {
+        // CUSTOM: Save (Ctrl+S)
+        save: save_macro {
             compatible = "zmk,behavior-macro";
-            label = "SELECT_WORD";
+            label = "SAVE";
             #binding-cells = <0>;
-            bindings = <&macro_press &kp LCTRL &kp LSHFT>, <&macro_tap &kp RIGHT>, <&macro_release &kp LCTRL &kp LSHFT>;
+            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp S>, <&macro_release &kp LCTRL>;
         };
 
-        select_section: select_section_macro {
+        // CUSTOM: Duplicate (Ctrl+D)
+        duplicate: duplicate_macro {
             compatible = "zmk,behavior-macro";
-            label = "SELECT_SECTION";
+            label = "DUPLICATE";
             #binding-cells = <0>;
-            bindings = <&macro_press &kp LCTRL &kp LSHFT>, <&macro_tap &kp DOWN>, <&macro_release &kp LCTRL &kp LSHFT>;
-        };
-
-        // CUSTOM: Windows+Tab for Task View
-        taskview: taskview_macro {
-            compatible = "zmk,behavior-macro";
-            label = "TASKVIEW";
-            #binding-cells = <0>;
-            bindings = <&macro_press &kp LGUI>, <&macro_tap &kp TAB>, <&macro_release &kp LGUI>;
+            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp D>, <&macro_release &kp LCTRL>;
         };
 
         // CUSTOM: Find (Ctrl+F)
@@ -461,15 +431,71 @@
             bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp F>, <&macro_release &kp LCTRL>;
         };
 
-        // CUSTOM: Duplicate line (Ctrl+D)
-        duplicate: duplicate_macro {
+        // CUSTOM: Undo (Ctrl+Z)
+        undo: undo_macro {
             compatible = "zmk,behavior-macro";
-            label = "DUPLICATE";
+            label = "UNDO";
             #binding-cells = <0>;
-            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp D>, <&macro_release &kp LCTRL>;
+            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp Z>, <&macro_release &kp LCTRL>;
         };
 
-        // CUSTOM: Go to start of document (Ctrl+Home)
+        // CUSTOM: Cut (Ctrl+X)
+        cut: cut_macro {
+            compatible = "zmk,behavior-macro";
+            label = "CUT";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp X>, <&macro_release &kp LCTRL>;
+        };
+
+        // CUSTOM: Copy (Ctrl+C)
+        copy: copy_macro {
+            compatible = "zmk,behavior-macro";
+            label = "COPY";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp C>, <&macro_release &kp LCTRL>;
+        };
+
+        // CUSTOM: Paste (Ctrl+V)
+        paste: paste_macro {
+            compatible = "zmk,behavior-macro";
+            label = "PASTE";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp V>, <&macro_release &kp LCTRL>;
+        };
+
+        // CUSTOM: Redo (Ctrl+Y)
+        redo: redo_macro {
+            compatible = "zmk,behavior-macro";
+            label = "REDO";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp Y>, <&macro_release &kp LCTRL>;
+        };
+
+        // CUSTOM: Task View (Windows+Tab)
+        taskview: taskview_macro {
+            compatible = "zmk,behavior-macro";
+            label = "TASKVIEW";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LGUI>, <&macro_tap &kp TAB>, <&macro_release &kp LGUI>;
+        };
+
+        // CUSTOM: Select word (Ctrl+Shift+Right)
+        select_word: select_word_macro {
+            compatible = "zmk,behavior-macro";
+            label = "SELECT_WORD";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL &kp LSHFT>, <&macro_tap &kp RIGHT>, <&macro_release &kp LCTRL &kp LSHFT>;
+        };
+
+        // CUSTOM: Select section (Ctrl+Shift+End)
+        select_section: select_section_macro {
+            compatible = "zmk,behavior-macro";
+            label = "SELECT_SECTION";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL &kp LSHFT>, <&macro_tap &kp END>, <&macro_release &kp LCTRL &kp LSHFT>;
+        };
+
+        // CUSTOM: Document start (Ctrl+Home)
         doc_start: doc_start_macro {
             compatible = "zmk,behavior-macro";
             label = "DOC_START";
@@ -477,7 +503,7 @@
             bindings = <&macro_press &kp LCTRL>, <&macro_tap &kp HOME>, <&macro_release &kp LCTRL>;
         };
 
-        // CUSTOM: Go to end of document (Ctrl+End)
+        // CUSTOM: Document end (Ctrl+End)
         doc_end: doc_end_macro {
             compatible = "zmk,behavior-macro";
             label = "DOC_END";
@@ -595,11 +621,11 @@
             bindings = <&doc_end>;
         };
 
-        // CUSTOM: Both Shifts together = Caps Word
-        combo_caps_word {
+        // CUSTOM: Both Shifts together = Toggle Caps Lock
+        combo_caps_lock {
             timeout-ms = <50>;
             key-positions = <52 57>;
-            bindings = <&caps_word>;
+            bindings = <&kp CAPS>;
         };
 
         // CUSTOM: A+S = @ symbol (increased timeout for hold-tap keys)
@@ -621,6 +647,13 @@
             timeout-ms = <50>;
             key-positions = <41 43>;
             bindings = <&kp PG_DN>;
+        };
+
+        // CUSTOM: Hyphen + Space = Enter Hyphen Mode
+        combo_hyphen_space_mode {
+            timeout-ms = <50>;
+            key-positions = <10 72>;
+            bindings = <&to HYPHEN_SPACE>;
         };
     };
 
@@ -668,6 +701,17 @@
             &kp Q      &kp W        &kp E        &kp R        &kp T        &kp Y                                                            &kp Y    &kp U        &kp I        &kp O        &kp P        &kp BSPC
             &kp A      &kp S        &kp D        &kp F        &kp G        &kp H        &kp LSHFT &kp LCTRL &none        &none &kp RCTRL &kp RSHFT &kp H   &kp J        &kp K        &kp L        &kp SEMI     &kp SQT
             &kp Z      &kp X        &kp C        &kp V        &kp B                     &kp SPACE &kp RET   &none        &none &kp RET   &kp SPACE         &kp N        &kp M        &kp COMMA    &kp DOT      &kp FSLH
+            >;
+        };
+
+        hyphen_space_layer {
+            bindings = <
+            &trans     &trans   &trans      &trans          &trans                                                                                                &trans  &trans   &trans          &trans    &trans
+            &trans     &trans   &trans      &trans          &trans          &trans                                                                        &trans  &trans   &trans          &trans    &trans     &trans
+            &trans     &trans   &trans      &trans          &trans          &trans                                                                        &trans  &trans   &trans          &trans    &trans     &trans
+            &trans     &trans   &trans      &trans          &trans          &trans                                                                        &trans  &trans   &trans          &trans    &trans     &trans
+            &trans     &trans   &trans      &trans          &trans          &trans   &trans        &trans    &trans      &trans  &trans  &trans           &trans  &trans   &trans          &trans    &trans     &trans
+            &trans     &trans   &trans      &trans          &trans                   &trans        &trans    &trans      &trans  &trans  &space_hyphen_td         &trans   &trans          &trans    &trans     &trans
             >;
         };
     };
