@@ -594,6 +594,34 @@
             key-positions = <72 70>;
             bindings = <&doc_end>;
         };
+
+        // CUSTOM: Both Shifts together = Caps Word
+        combo_caps_word {
+            timeout-ms = <50>;
+            key-positions = <52 57>;
+            bindings = <&caps_word>;
+        };
+
+        // CUSTOM: A+S = @ symbol
+        combo_at_sign {
+            timeout-ms = <50>;
+            key-positions = <38 37>;
+            bindings = <&kp AT>;
+        };
+
+        // CUSTOM: J+K = Page Down
+        combo_page_down {
+            timeout-ms = <50>;
+            key-positions = <41 42>;
+            bindings = <&kp PG_DN>;
+        };
+
+        // CUSTOM: K+L = Page Up
+        combo_page_up {
+            timeout-ms = <50>;
+            key-positions = <42 43>;
+            bindings = <&kp PG_UP>;
+        };
     };
 
     keymap {
