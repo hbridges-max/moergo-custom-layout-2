@@ -628,25 +628,25 @@
             bindings = <&kp CAPS>;
         };
 
-        // CUSTOM: Q+W = @ symbol
+        // CUSTOM: W+E = @ symbol
         combo_at_sign {
             timeout-ms = <50>;
-            key-positions = <23 24>;
+            key-positions = <24 25>;
             bindings = <&kp AT>;
         };
 
-        // CUSTOM: J+K = Page Down
-        combo_page_down {
-            timeout-ms = <50>;
-            key-positions = <41 42>;
-            bindings = <&kp PG_DN>;
-        };
-
-        // CUSTOM: K+L = Page Up
+        // CUSTOM: J+K = Page Up
         combo_page_up {
             timeout-ms = <50>;
-            key-positions = <42 43>;
+            key-positions = <41 42>;
             bindings = <&kp PG_UP>;
+        };
+
+        // CUSTOM: K+L = Page Down
+        combo_page_down {
+            timeout-ms = <50>;
+            key-positions = <42 43>;
+            bindings = <&kp PG_DN>;
         };
 
         // CUSTOM: Hyphen + Space = Enter Hyphen Mode
