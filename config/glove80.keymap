@@ -588,6 +588,14 @@
                 , <&macro_tap &kp KP_N0 &kp KP_N1 &kp KP_N5 &kp KP_N0>
                 , <&macro_release &kp LALT>;
         };
+
+        // CUSTOM: Enter Hyphen Mode with initial hyphen
+        enter_hyphen_mode: enter_hyphen_mode_macro {
+            compatible = "zmk,behavior-macro";
+            label = "ENTER_HYPHEN_MODE";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &kp MINUS>, <&macro_tap &to HYPHEN_SPACE>;
+        };
     };
 
     combos {
@@ -642,11 +650,11 @@
             bindings = <&kp PG_DN>;
         };
 
-        // CUSTOM: Hyphen + Space = Enter Hyphen Mode
+        // CUSTOM: Hyphen + Space = Enter Hyphen Mode (with initial hyphen)
         combo_hyphen_space_mode {
             timeout-ms = <50>;
             key-positions = <10 74>;
-            bindings = <&to HYPHEN_SPACE>;
+            bindings = <&enter_hyphen_mode>;
         };
     };
 
